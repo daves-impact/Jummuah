@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jumuah Industrial Co. Ltd — UK-Used & IT Supply</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#ffffff;
+  --black:#0a0a0a;
+  --gray-50:#fafafa;
+  --gray-100:#f4f4f4;
+  --gray-200:#e8e8e8;
+  --gray-300:#d0d0d0;
+  --gray-400:#a0a0a0;
+  --gray-500:#707070;
+  --gray-600:#505050;
+  --border:#e2e2e2;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--black);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ANNOUNCEMENT BAR */
+.announcement{background:var(--black);color:var(--white);text-align:center;padding:0.6rem 1rem;font-size:0.72rem;letter-spacing:0.1em;font-weight:500;}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:1.5rem;height:64px;}
+.nav-logo{font-size:1.1rem;font-weight:800;color:var(--black);text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;flex-shrink:0;}
+.nav-logo span{font-weight:300;}
+.nav-search{flex:1;position:relative;max-width:500px;}
+.nav-search input{width:100%;border:1.5px solid var(--border);background:var(--gray-50);padding:0.6rem 1rem 0.6rem 2.5rem;font-family:'Inter',sans-serif;font-size:0.82rem;color:var(--black);outline:none;transition:border-color 0.2s;}
+.nav-search input:focus{border-color:var(--black);}
+.nav-search input::placeholder{color:var(--gray-400);}
+.search-icon{position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);width:16px;height:16px;opacity:0.4;}
+.search-results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--black);z-index:200;max-height:320px;overflow-y:auto;display:none;}
+.search-results.open{display:block;}
+.search-result-item{display:flex;align-items:center;gap:1rem;padding:0.75rem 1rem;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.2s;}
+.search-result-item:hover{background:var(--gray-50);}
+.search-result-item:last-child{border-bottom:none;}
+.sri-icon{width:40px;height:40px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sri-icon svg{width:22px;height:22px;}
+.sri-name{font-size:0.8rem;font-weight:600;color:var(--black);}
+.sri-cat{font-size:0.68rem;color:var(--gray-400);}
+.sri-price{font-size:0.8rem;font-weight:700;color:var(--black);margin-left:auto;white-space:nowrap;}
+.no-results{padding:1rem;text-align:center;font-size:0.8rem;color:var(--gray-400);}
+
+.nav-actions{display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}
+.nav-icon-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:0.4rem;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:500;color:var(--black);padding:0.5rem;transition:opacity 0.2s;position:relative;}
+.nav-icon-btn:hover{opacity:0.6;}
+.nav-icon-btn svg{width:20px;height:20px;}
+.cart-badge{position:absolute;top:-2px;right:-2px;background:var(--black);color:var(--white);width:16px;height:16px;border-radius:50%;font-size:0.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:4px;padding:4px;}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--black);transition:transform 0.3s,opacity 0.3s;}
+.nav-burger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+
+.nav-cats{background:var(--gray-50);border-bottom:1px solid var(--border);}
+.nav-cats-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.nav-cats-inner::-webkit-scrollbar{display:none;}
+.nav-cat-link{padding:0.6rem 1.25rem;font-size:0.72rem;font-weight:500;color:var(--gray-500);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+.nav-cat-link:hover,.nav-cat-link.active{color:var(--black);border-bottom-color:var(--black);}
+
+/* MOBILE MENU */
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:99;flex-direction:column;padding:5rem 2rem 2rem;gap:1.5rem;overflow-y:auto;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:1.4rem;font-weight:700;color:var(--black);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+
+/* CART SIDEBAR */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:100%;max-width:400px;background:var(--white);border-left:1px solid var(--border);z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.35s ease;}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);}
+.cart-title{font-size:0.85rem;font-weight:700;color:var(--black);letter-spacing:0.05em;text-transform:uppercase;}
+.cart-close{background:none;border:none;cursor:pointer;font-size:1.3rem;color:var(--black);opacity:0.4;transition:opacity 0.2s;line-height:1;}
+.cart-close:hover{opacity:1;}
+.cart-items{flex:1;overflow-y:auto;padding:1.25rem;}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;opacity:0.35;}
+.cart-empty svg{width:48px;height:48px;}
+.cart-empty p{font-size:0.82rem;font-weight:500;}
+.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item-img{width:64px;height:64px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cart-item-img svg{width:36px;height:36px;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:0.78rem;font-weight:600;color:var(--black);margin-bottom:0.2rem;line-height:1.3;}
+.cart-item-price{font-size:0.75rem;color:var(--gray-500);}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:1.1rem;transition:color 0.2s;padding:0;line-height:1;flex-shrink:0;}
+.cart-item-remove:hover{color:var(--black);}
+.cart-footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:0.5rem;}
+.cart-subtotal-label{font-size:0.75rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.08em;}
+.cart-subtotal-amount{font-size:0.9rem;font-weight:700;color:var(--black);}
+.cart-note-text{font-size:0.68rem;color:var(--gray-400);margin-bottom:1rem;}
+.cart-wa-btn{display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;background:var(--black);color:var(--white);border:none;padding:0.9rem;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:opacity 0.2s;}
+.cart-wa-btn:hover{opacity:0.8;}
+.cart-wa-btn svg{width:16px;height:16px;fill:var(--white);}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--black);color:var(--white);padding:0.7rem 1.5rem;font-size:0.72rem;font-weight:600;letter-spacing:0.05em;z-index:400;transition:transform 0.3s;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* HERO BANNER */
+.hero{background:var(--black);color:var(--white);padding:5rem 2rem;position:relative;overflow:hidden;}
+.hero-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.hero-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:1.25rem;}
+.hero-title{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;line-height:1.0;letter-spacing:-0.03em;margin-bottom:1.5rem;}
+.hero-sub{font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.6);max-width:420px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-btn-primary{background:var(--white);color:var(--black);border:none;padding:0.85rem 2rem;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.2s;}
+.hero-btn-primary:hover{opacity:0.85;}
+.hero-btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.3);padding:0.85rem 2rem;font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color 0.2s;}
+.hero-btn-ghost:hover{border-color:var(--white);}
+.hero-right{display:flex;flex-direction:column;gap:1rem;}
+.hero-stat-row{display:flex;gap:1rem;}
+.hero-stat{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:1.25rem;}
+.hero-stat-num{font-size:1.8rem;font-weight:800;color:var(--white);line-height:1;}
+.hero-stat-label{font-size:0.62rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.3rem;}
+.hero-featured{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.hero-featured-icon{width:72px;height:72px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-featured-icon svg{width:40px;height:40px;stroke:white;fill:none;}
+.hero-featured-label{font-size:0.62rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
+.hero-featured-name{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.25rem;}
+.hero-featured-price{font-size:0.85rem;color:rgba(255,255,255,0.6);}
+
+/* MARQUEE */
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:0.8rem 0;background:var(--gray-50);}
+.marquee-track{display:flex;width:max-content;animation:marquee 25s linear infinite;}
+.marquee-item{display:flex;align-items:center;gap:2rem;padding-right:2rem;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-500);white-space:nowrap;}
+.marquee-sep{width:4px;height:4px;background:var(--gray-300);border-radius:50%;flex-shrink:0;}
+
+/* SECTIONS */
+.section{padding:4rem 2rem;}
+.section-inner{max-width:1400px;margin:0 auto;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;gap:1rem;flex-wrap:wrap;}
+.section-label{font-size:0.62rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gray-400);margin-bottom:0.4rem;}
+.section-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:var(--black);letter-spacing:-0.02em;}
+.view-all-btn{font-size:0.72rem;font-weight:600;color:var(--black);text-decoration:none;border-bottom:1.5px solid var(--black);padding-bottom:0.1rem;white-space:nowrap;transition:opacity 0.2s;}
+.view-all-btn:hover{opacity:0.5;}
+
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+.cat-card{background:var(--gray-50);border:1.5px solid var(--border);padding:1.75rem 1.25rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;text-decoration:none;display:block;}
+.cat-card:hover{border-color:var(--black);background:var(--white);}
+.cat-card.active{border-color:var(--black);background:var(--black);}
+.cat-card.active .cat-name{color:var(--white);}
+.cat-card.active .cat-sub{color:rgba(255,255,255,0.5);}
+.cat-card.active svg{stroke:var(--white);}
+.cat-icon-wrap{width:52px;height:52px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;}
+.cat-icon-wrap svg{width:32px;height:32px;stroke:var(--black);fill:none;stroke-width:1.5;}
+.cat-name{font-size:0.8rem;font-weight:700;color:var(--black);margin-bottom:0.25rem;}
+.cat-sub{font-size:0.65rem;color:var(--gray-400);}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;}
+.product-card{border:1.5px solid var(--border);background:var(--white);transition:border-color 0.2s,box-shadow 0.2s;cursor:pointer;}
+.product-card:hover{border-color:var(--black);box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.product-img-wrap{width:100%;aspect-ratio:1/1;background:var(--gray-50);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.product-img-wrap svg{width:80px;height:80px;stroke:var(--black);fill:none;stroke-width:1.2;transition:transform 0.4s;}
+.product-card:hover .product-img-wrap svg{transform:scale(1.08);}
+.product-badge-wrap{position:absolute;top:0.75rem;left:0.75rem;display:flex;flex-direction:column;gap:0.3rem;}
+.badge{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.5rem;background:var(--black);color:var(--white);}
+.badge.sale{background:var(--black);}
+.badge.new{background:var(--black);}
+.badge.hot{background:var(--black);}
+.product-info{padding:1rem;}
+.product-cat-tag{font-size:0.6rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:0.35rem;}
+.product-name{font-size:0.85rem;font-weight:700;color:var(--black);margin-bottom:0.25rem;line-height:1.3;}
+.product-spec{font-size:0.68rem;color:var(--gray-400);line-height:1.5;margin-bottom:0.75rem;}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-size:0.95rem;font-weight:800;color:var(--black);}
+.add-btn{background:var(--black);color:var(--white);border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;font-weight:300;transition:opacity 0.2s;flex-shrink:0;}
+.add-btn:hover{opacity:0.7;}
+.add-btn.added{background:var(--black);opacity:0.6;}
+.add-btn svg{width:14px;height:14px;stroke:var(--white);fill:none;stroke-width:2.5;}
+
+/* PROMO BANNER */
+.promo-banner{background:var(--black);margin:0 2rem;padding:3rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
+.promo-label{font-size:0.62rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:0.5rem;}
+.promo-title{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:800;color:var(--white);letter-spacing:-0.02em;}
+.promo-sub{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.5rem;}
+.promo-btn{background:var(--white);color:var(--black);border:none;padding:0.85rem 2rem;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:opacity 0.2s;}
+.promo-btn:hover{opacity:0.85;}
+
+/* WHY US */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.why-card{border:1.5px solid var(--border);padding:1.75rem;}
+.why-icon{width:40px;height:40px;margin-bottom:1rem;}
+.why-icon svg{width:40px;height:40px;stroke:var(--black);fill:none;stroke-width:1.5;}
+.why-title{font-size:0.82rem;font-weight:700;color:var(--black);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.04em;}
+.why-desc{font-size:0.75rem;color:var(--gray-500);line-height:1.65;}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.review-card{border:1.5px solid var(--border);padding:1.5rem;}
+.review-stars{font-size:0.75rem;letter-spacing:0.1em;color:var(--black);margin-bottom:0.75rem;}
+.review-text{font-size:0.8rem;line-height:1.7;color:var(--gray-600);margin-bottom:1rem;}
+.review-author{font-size:0.72rem;font-weight:700;color:var(--black);}
+.review-date{font-size:0.65rem;color:var(--gray-400);margin-top:0.15rem;}
+
+/* FOOTER */
+footer{background:var(--black);color:var(--white);padding:4rem 2rem 2rem;margin-top:4rem;}
+.footer-inner{max-width:1400px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.1);}
+.footer-brand{font-size:1.2rem;font-weight:800;color:var(--white);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+.footer-brand-sub{font-size:0.62rem;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;}
+.footer-desc{font-size:0.75rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:1.5rem;}
+.footer-social{display:flex;gap:0.5rem;}
+.footer-soc{width:32px;height:32px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.62rem;font-weight:600;transition:border-color 0.2s,color 0.2s;}
+.footer-soc:hover{border-color:var(--white);color:var(--white);}
+.footer-col-title{font-size:0.6rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.footer-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-size:0.65rem;color:rgba(255,255,255,0.25);}
+.footer-legal{display:flex;gap:1.5rem;}
+.footer-legal a{font-size:0.65rem;color:rgba(255,255,255,0.25);text-decoration:none;transition:color 0.2s;}
+.footer-legal a:hover{color:rgba(255,255,255,0.6);}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.filter-btn{background:var(--white);border:1.5px solid var(--border);color:var(--gray-500);padding:0.45rem 1.1rem;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.filter-btn:hover{border-color:var(--black);color:var(--black);}
+.filter-btn.active{background:var(--black);border-color:var(--black);color:var(--white);}
+
+/* ANIMATIONS */
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .product-grid{grid-template-columns:repeat(3,1fr);}
+  .cat-grid{grid-template-columns:repeat(5,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+  .footer-top>div:first-child{grid-column:1/-1;}
+}
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .product-grid{grid-template-columns:repeat(2,1fr);}
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+  .reviews-grid{grid-template-columns:1fr 1fr;}
+  .promo-banner{grid-template-columns:1fr;margin:0 1rem;}
+}
+@media(max-width:640px){
+  .nav-inner{padding:0 1rem;}
+  .nav-search{display:none;}
+  .nav-burger{display:flex;}
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:0.75rem;}
+  .why-grid{grid-template-columns:1fr;}
+  .reviews-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .footer-top>div:first-child{grid-column:auto;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .section{padding:3rem 1rem;}
+  .hero{padding:3.5rem 1rem;}
+  .promo-banner{margin:0;padding:2rem 1rem;}
+  .cart-sidebar{max-width:100%;}
+}
+@media(max-width:400px){
+  .product-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">Free delivery on orders above &#8358;500,000 &nbsp;&bull;&nbsp; Verified UK-Used Specialist &nbsp;&bull;&nbsp; Wholesale Available</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Jumuah <span>Industrial</span></a>
+    <div class="nav-search">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-input" placeholder="Search products..." autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="cart-btn" title="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="nav-cats">
+    <div class="nav-cats-inner">
+      <a href="#" class="nav-cat-link active" onclick="filterAll(this)">All Products</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('laptops',this)">Laptops</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('phones',this)">Phones</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('gaming',this)">Gaming</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('tablets',this)">Tablets</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('accessories',this)">Accessories</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('networking',this)">Networking</a>
+      <a href="#" class="nav-cat-link" onclick="filterCat('smarthome',this)">Smart Home</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" class="menu-link">All Products</a>
+  <a href="#" class="menu-link">Laptops</a>
+  <a href="#" class="menu-link">Phones</a>
+  <a href="#" class="menu-link">Gaming</a>
+  <a href="#" class="menu-link">Tablets</a>
+  <a href="#" class="menu-link">Accessories</a>
+  <a href="#" class="menu-link">Networking</a>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <span class="cart-title">Your Cart</span>
+    <button class="cart-close" id="cart-close">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <p>Your cart is empty</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-amount" id="cart-total">&#8358;0</span>
+    </div>
+    <p class="cart-note-text">Availability and payment confirmed via WhatsApp</p>
+    <a class="cart-wa-btn" id="cart-wa-btn" href="#" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order via WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Jumuah Industrial Co. Ltd &mdash; Est. Lagos</div>
+      <h1 class="hero-title">Premium Tech.<br>Verified Source.</h1>
+      <p class="hero-sub">UK-Used laptops, gaming consoles, phones and accessories. Enterprise & brand-new IT supply. 500+ satisfied customers across Nigeria.</p>
+      <div class="hero-btns">
+        <a href="#products" class="hero-btn-primary">Shop Now</a>
+        <a href="#contact" class="hero-btn-ghost">Contact Us</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-row">
+        <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Happy Customers</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">5&#9733;</div><div class="hero-stat-label">Verified Reviews</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">3+</div><div class="hero-stat-label">Years Active</div></div>
+      </div>
+      <div class="hero-featured">
+        <div class="hero-featured-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div>
+          <div class="hero-featured-label">Featured this week</div>
+          <div class="hero-featured-name">MacBook Pro 2015 &mdash; Core i5</div>
+          <div class="hero-featured-price">&#8358;125,000 &middot; UK-Used &middot; Verified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">UK-Used Laptops<span class="marquee-sep"></span>Gaming Consoles<span class="marquee-sep"></span>iPhones<span class="marquee-sep"></span>Accessories<span class="marquee-sep"></span>Starlink<span class="marquee-sep"></span>Wholesale Available<span class="marquee-sep"></span>Verified Seller<span class="marquee-sep"></span>Fast Delivery<span class="marquee-sep"></span>Enterprise IT Supply<span class="marquee-sep"></span>Brand New Stock<span class="marquee-sep"></span>UK-Used Laptops<span class="marquee-sep"></span>Gaming Consoles<span class="marquee-sep"></span>iPhones<span class="marquee-sep"></span>Accessories<span class="marquee-sep"></span>Starlink<span class="marquee-sep"></span>Wholesale Available<span class="marquee-sep"></span>Verified Seller<span class="marquee-sep"></span>Fast Delivery<span class="marquee-sep"></span>Enterprise IT Supply<span class="marquee-sep"></span>Brand New Stock<span class="marquee-sep"></span></div>
+    <div class="marquee-item" aria-hidden="true">UK-Used Laptops<span class="marquee-sep"></span>Gaming Consoles<span class="marquee-sep"></span>iPhones<span class="marquee-sep"></span>Accessories<span class="marquee-sep"></span>Starlink<span class="marquee-sep"></span>Wholesale Available<span class="marquee-sep"></span>Verified Seller<span class="marquee-sep"></span>Fast Delivery<span class="marquee-sep"></span>Enterprise IT Supply<span class="marquee-sep"></span>Brand New Stock<span class="marquee-sep"></span></div>
+  </div>
+</div>
+
+<!-- SHOP BY CATEGORY -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div><div class="section-label">Browse</div><h2 class="section-title">Shop by Category</h2></div>
+    </div>
+    <div class="cat-grid reveal">
+      <a href="#products" class="cat-card" onclick="filterCat('laptops',null)">
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="cat-name">Laptops</div><div class="cat-sub">UK-Used & New</div>
+      </a>
+      <a href="#products" class="cat-card" onclick="filterCat('phones',null)">
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="cat-name">Phones</div><div class="cat-sub">iPhone & Android</div>
+      </a>
+      <a href="#products" class="cat-card" onclick="filterCat('gaming',null)">
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="2" x2="12" y2="10"/><line x1="3.27" y1="6.96" x2="12" y2="12.01"/><line x1="20.73" y1="6.96" x2="12" y2="12.01"/></svg></div>
+        <div class="cat-name">Gaming</div><div class="cat-sub">PS5, Xbox & More</div>
+      </a>
+      <a href="#products" class="cat-card" onclick="filterCat('tablets',null)">
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="cat-name">Tablets</div><div class="cat-sub">iPad & Android</div>
+      </a>
+      <a href="#products" class="cat-card" onclick="filterCat('accessories',null)">
+        <div class="cat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <div class="cat-name">Accessories</div><div class="cat-sub">AirPods, Watches</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="section" style="padding-top:0;" id="new-arrivals">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div><div class="section-label">Just In</div><h2 class="section-title">New Arrivals</h2></div>
+      <a href="#products" class="view-all-btn">View All</a>
+    </div>
+    <div class="product-grid" id="new-arrivals-grid"></div>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner reveal">
+  <div>
+    <div class="promo-label">Enterprise & Wholesale</div>
+    <div class="promo-title">Need bulk IT supply<br>for your business?</div>
+    <div class="promo-sub">We supply enterprises, schools, and institutions across Nigeria.</div>
+  </div>
+  <a href="#contact" class="promo-btn">Get a Quote</a>
+</div>
+
+<!-- ALL PRODUCTS -->
+<section class="section" id="products">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div><div class="section-label">Our Store</div><h2 class="section-title">All Products</h2></div>
+    </div>
+    <div class="filter-bar reveal" id="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('laptops',this)">Laptops</button>
+      <button class="filter-btn" onclick="filterProducts('phones',this)">Phones</button>
+      <button class="filter-btn" onclick="filterProducts('gaming',this)">Gaming</button>
+      <button class="filter-btn" onclick="filterProducts('tablets',this)">Tablets</button>
+      <button class="filter-btn" onclick="filterProducts('accessories',this)">Accessories</button>
+      <button class="filter-btn" onclick="filterProducts('networking',this)">Networking</button>
+      <button class="filter-btn" onclick="filterProducts('smarthome',this)">Smart Home</button>
+    </div>
+    <div class="product-grid" id="main-product-grid"></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" style="background:var(--gray-50);">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div><div class="section-label">Our Promise</div><h2 class="section-title">Why Shop With Us</h2></div>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="why-title">Verified Products</div>
+        <div class="why-desc">Every item is inspected and verified before delivery. No compromises on quality.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="why-title">Fast Delivery</div>
+        <div class="why-desc">We track every shipment and follow up personally to ensure it reaches you safely.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="why-title">Direct Communication</div>
+        <div class="why-desc">Speak directly with us. No middlemen, no confusion. Straightforward business.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="why-title">Trusted & Secure</div>
+        <div class="why-desc">500+ satisfied customers. Verified seller with years of proven track record.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div><div class="section-label">Testimonials</div><h2 class="section-title">What Customers Say</h2></div>
+    </div>
+    <div class="reviews-grid reveal">
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="review-text">"The purchase was seamlessly easy and wonderful. The customer service experience was 100%. I'm definitely giving them a 5 star rating and I recommend Jumuah to anyone who wants to get a laptop."</div>
+        <div class="review-author">David Williams</div><div class="review-date">July 2023</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="review-text">"He is one of a kind -- humble, truthful, respectful. He responds to everything and is a straightforward person. I recommend everyone to do business with him, you will never regret it."</div>
+        <div class="review-author">Verified Customer</div><div class="review-date">March 2023</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="review-text">"He did not only send the item I purchased but also followed up with tracking of the waybill to make sure it gets to me. Highly recommend. Trustworthy and professional."</div>
+        <div class="review-author">Zintel Group</div><div class="review-date">October 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Jumuah Industrial</div>
+        <div class="footer-brand-sub">Co. Ltd &mdash; Lagos, Nigeria</div>
+        <p class="footer-desc">UK-Used Laptop Specialists. Enterprise & Brand-New IT Supply. Wholesale available. Trusted by 500+ customers across Nigeria.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-soc">IG</a>
+          <a href="#" class="footer-soc">WA</a>
+          <a href="#" class="footer-soc">FB</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div>
+        <ul class="footer-links">
+          <li><a href="#">Laptops</a></li>
+          <li><a href="#">Phones</a></li>
+          <li><a href="#">Gaming Consoles</a></li>
+          <li><a href="#">Tablets</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Networking</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">Wholesale</a></li>
+          <li><a href="#">Enterprise Supply</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">@jumuahcompany</a></li>
+          <li><a href="#">Lagos, Nigeria</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2024 Jumuah Industrial Co. Ltd. All rights reserved.</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const WA = '2348000000000';
+let cart = [];
+
+// SVG ICONS
+const ICONS = {
+  laptop: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+  phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  gaming: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 12h12M12 6v12"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>`,
+  tablet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  headphones: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>`,
+  watch: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="7"/><polyline points="12 9 12 12 13.5 13.5"/><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"/></svg>`,
+  wifi: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
+  smarthome: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  camera: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+  monitor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+  printer: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+  speaker: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="4"/><line x1="12" y1="6" x2="12.01" y2="6"/></svg>`,
+  keyboard: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>`,
+  mouse: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2a7 7 0 0 0-7 7v6a7 7 0 0 0 14 0V9a7 7 0 0 0-7-7z"/><line x1="12" y1="2" x2="12" y2="10"/></svg>`,
+  charger: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.19"/><line x1="23" y1="13" x2="23" y2="11"/><polyline points="11 6 7 12 13 12 9 18"/></svg>`,
+};
+
+// ALL PRODUCTS
+const PRODUCTS = [
+  // LAPTOPS
+  {id:1,name:'MacBook Pro 2015',cat:'laptops',spec:'Core i5 · 256GB SSD · 8GB RAM · Retina',price:125000,badge:'UK-Used',icon:'laptop',new:true},
+  {id:2,name:'Lenovo IdeaPad 3 Detachable',cat:'laptops',spec:'Core i3 · 128GB SSD · 4GB RAM · Touch · 2-in-1',price:125000,badge:'Hot',icon:'laptop',new:true},
+  {id:3,name:'Dell Latitude 7490',cat:'laptops',spec:'Core i7 · 512GB SSD · 16GB RAM · Business',price:195000,badge:'UK-Used',icon:'laptop'},
+  {id:4,name:'HP EliteBook 840 G6',cat:'laptops',spec:'Core i5 · 256GB SSD · 8GB RAM · 14"',price:165000,badge:'UK-Used',icon:'laptop'},
+  {id:5,name:'ThinkPad X1 Carbon',cat:'laptops',spec:'Core i7 · 512GB SSD · 16GB RAM · Ultralight',price:230000,badge:'UK-Used',icon:'laptop'},
+  {id:6,name:'MacBook Air M1',cat:'laptops',spec:'Apple M1 · 256GB SSD · 8GB RAM · 13"',price:395000,badge:'New',icon:'laptop',new:true},
+  {id:7,name:'Dell XPS 15',cat:'laptops',spec:'Core i9 · 1TB SSD · 32GB RAM · 4K OLED',price:450000,badge:'New',icon:'laptop'},
+  {id:8,name:'HP Pavilion 15',cat:'laptops',spec:'Core i5 · 256GB SSD · 8GB RAM · Budget',price:145000,badge:'UK-Used',icon:'laptop'},
+  // PHONES
+  {id:9,name:'iPhone 15 Pro Max',cat:'phones',spec:'256GB · Titanium · A17 Pro · 48MP Camera',price:950000,badge:'New',icon:'phone',new:true},
+  {id:10,name:'iPhone 14 Pro',cat:'phones',spec:'128GB · Space Black · A16 · Dynamic Island',price:720000,badge:'New',icon:'phone'},
+  {id:11,name:'iPhone 13',cat:'phones',spec:'128GB · Midnight · A15 Bionic · Dual Camera',price:480000,badge:'UK-Used',icon:'phone'},
+  {id:12,name:'Samsung Galaxy S24 Ultra',cat:'phones',spec:'256GB · Titanium Black · S Pen · 200MP',price:870000,badge:'New',icon:'phone',new:true},
+  {id:13,name:'Samsung Galaxy S23',cat:'phones',spec:'128GB · Phantom Black · 50MP · 8K Video',price:480000,badge:'New',icon:'phone'},
+  {id:14,name:'iPhone 12 Pro',cat:'phones',spec:'128GB · Pacific Blue · 5G · UK-Used',price:350000,badge:'UK-Used',icon:'phone'},
+  // GAMING
+  {id:15,name:'PlayStation 5 (PS5)',cat:'gaming',spec:'Disc Edition · 825GB SSD · 4K · 120FPS',price:650000,badge:'Hot',icon:'gaming',new:true},
+  {id:16,name:'Xbox Series X',cat:'gaming',spec:'1TB SSD · 4K · 120FPS · Game Pass Ready',price:580000,badge:'New',icon:'gaming'},
+  {id:17,name:'Nintendo Switch OLED',cat:'gaming',spec:'7" OLED Display · 64GB · Dock Included',price:280000,badge:'New',icon:'gaming'},
+  {id:18,name:'PS5 DualSense Controller',cat:'gaming',spec:'Haptic Feedback · Adaptive Triggers · USB-C',price:45000,badge:'New',icon:'gaming'},
+  {id:19,name:'Xbox Wireless Controller',cat:'gaming',spec:'Carbon Black · Bluetooth · 3.5mm Jack',price:38000,badge:'New',icon:'gaming'},
+  // TABLETS
+  {id:20,name:'iPad Pro 12.9" M2',cat:'tablets',spec:'256GB · Wi-Fi · Liquid Retina XDR · M2',price:680000,badge:'New',icon:'tablet',new:true},
+  {id:21,name:'iPad Air 5th Gen',cat:'tablets',spec:'64GB · Wi-Fi · M1 Chip · 10.9"',price:420000,badge:'New',icon:'tablet'},
+  {id:22,name:'Samsung Galaxy Tab S9',cat:'tablets',spec:'256GB · Wi-Fi · 11" · S Pen Included',price:490000,badge:'New',icon:'tablet'},
+  {id:23,name:'iPad Mini 6',cat:'tablets',spec:'64GB · Wi-Fi · A15 Bionic · 8.3"',price:350000,badge:'New',icon:'tablet'},
+  // ACCESSORIES
+  {id:24,name:'AirPods Pro 2nd Gen',cat:'accessories',spec:'ANC · MagSafe · USB-C · Transparency Mode',price:95000,badge:'New',icon:'headphones',new:true},
+  {id:25,name:'Apple Watch Ultra 2',cat:'accessories',spec:'49mm · Titanium · GPS+Cellular · Ocean Band',price:280000,badge:'New',icon:'watch'},
+  {id:26,name:'Apple AirPods Max',cat:'accessories',spec:'Over-Ear · ANC · Spatial Audio · Lightning',price:185000,badge:'New',icon:'headphones'},
+  {id:27,name:'Samsung Galaxy Watch 6',cat:'accessories',spec:'44mm · Aluminum · GPS · BioActive Sensor',price:145000,badge:'New',icon:'watch'},
+  {id:28,name:'Apple Watch Series 9',cat:'accessories',spec:'45mm · Aluminum · GPS · S9 Chip',price:195000,badge:'New',icon:'watch'},
+  {id:29,name:'Sony WH-1000XM5',cat:'accessories',spec:'Over-Ear · 30hr Battery · ANC · Multipoint',price:120000,badge:'New',icon:'headphones'},
+  {id:30,name:'Apple Magic Keyboard',cat:'accessories',spec:'Touch ID · Backlit · USB-C · Silver',price:55000,badge:'New',icon:'keyboard'},
+  {id:31,name:'Logitech MX Master 3S',cat:'accessories',spec:'Silent · 8K DPI · Multi-device · Ergonomic',price:42000,badge:'New',icon:'mouse'},
+  // NETWORKING
+  {id:32,name:'Starlink Ethernet Adapter',cat:'networking',spec:'High-Speed · Easy Setup · Wide Coverage',price:45000,badge:'In Stock',icon:'wifi',new:true},
+  {id:33,name:'Starlink Standard Kit',cat:'networking',spec:'Satellite Internet · Self-Install · 200Mbps+',price:380000,badge:'New',icon:'wifi'},
+  {id:34,name:'TP-Link AX3000 Router',cat:'networking',spec:'Wi-Fi 6 · Dual Band · 3000Mbps · MU-MIMO',price:52000,badge:'New',icon:'wifi'},
+  {id:35,name:'Ubiquiti UniFi AP',cat:'networking',spec:'Enterprise Wi-Fi · PoE · Long Range · AC Pro',price:68000,badge:'New',icon:'wifi'},
+  // SMART HOME
+  {id:36,name:'Apple TV 4K',cat:'smarthome',spec:'3rd Gen · A15 Bionic · HDR · Dolby Atmos',price:95000,badge:'New',icon:'smarthome',new:true},
+  {id:37,name:'Amazon Echo Show 10',cat:'smarthome',spec:'10" HD Display · Alexa · 360° Motion',price:65000,badge:'New',icon:'smarthome'},
+  {id:38,name:'Ring Video Doorbell Pro 2',cat:'smarthome',spec:'4K · Head-to-Toe View · 3D Motion · Wi-Fi',price:72000,badge:'New',icon:'camera'},
+  {id:39,name:'Philips Hue Starter Kit',cat:'smarthome',spec:'4 Smart Bulbs · Bridge · App Control · Voice',price:48000,badge:'New',icon:'smarthome'},
+  {id:40,name:'HP LaserJet Pro M404n',cat:'networking',spec:'Mono · 38ppm · USB/Ethernet · A4',price:115000,badge:'New',icon:'printer'},
+];
+
+function makeProductCard(p) {
+  return `<div class="product-card" data-cat="${p.cat}" data-id="${p.id}">
+    <div class="product-img-wrap">
+      ${ICONS[p.icon]||ICONS.laptop}
+      <div class="product-badge-wrap"><span class="badge">${p.badge}</span></div>
+    </div>
+    <div class="product-info">
+      <div class="product-cat-tag">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-spec">${p.spec}</div>
+      <div class="product-bottom">
+        <div class="product-price">&#8358;${p.price.toLocaleString()}</div>
+        <button class="add-btn" onclick="addToCart(this,${p.id})" title="Add to cart">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// Render new arrivals
+const newGrid = document.getElementById('new-arrivals-grid');
+newGrid.innerHTML = PRODUCTS.filter(p=>p.new).map(makeProductCard).join('');
+
+// Render all products
+const mainGrid = document.getElementById('main-product-grid');
+mainGrid.innerHTML = PRODUCTS.map(makeProductCard).join('');
+
+// Filter products
+function filterProducts(cat, btn) {
+  if(btn){ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  document.querySelectorAll('#main-product-grid .product-card').forEach(c=>{
+    c.style.display = (cat==='all'||c.dataset.cat===cat) ? '' : 'none';
+  });
+}
+function filterCat(cat, el) {
+  event && event.preventDefault();
+  document.querySelectorAll('.nav-cat-link').forEach(l=>l.classList.remove('active'));
+  if(el) el.classList.add('active');
+  filterProducts(cat, null);
+  document.querySelectorAll('.filter-btn').forEach(b=>{ if(b.textContent.toLowerCase()===cat) b.classList.add('active'); else b.classList.remove('active'); });
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+function filterAll(el) {
+  event && event.preventDefault();
+  document.querySelectorAll('.nav-cat-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+  filterProducts('all',null);
+  document.querySelectorAll('.filter-btn').forEach(b=>{ if(b.textContent==='All') b.classList.add('active'); else b.classList.remove('active'); });
+}
+
+// Search
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+searchInput.addEventListener('input', function(){
+  const q = this.value.trim().toLowerCase();
+  if(!q){ searchResults.classList.remove('open'); return; }
+  const matches = PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)||p.spec.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));
+  if(matches.length===0){ searchResults.innerHTML='<div class="no-results">No products found</div>'; searchResults.classList.add('open'); return; }
+  searchResults.innerHTML = matches.slice(0,6).map(p=>`
+    <div class="search-result-item" onclick="addToCart(null,${p.id});searchResults.classList.remove('open');searchInput.value='';">
+      <div class="sri-icon">${ICONS[p.icon]||ICONS.laptop}</div>
+      <div><div class="sri-name">${p.name}</div><div class="sri-cat">${p.cat}</div></div>
+      <div class="sri-price">&#8358;${p.price.toLocaleString()}</div>
+    </div>`).join('');
+  searchResults.classList.add('open');
+});
+document.addEventListener('click', e=>{ if(!e.target.closest('.nav-search')) searchResults.classList.remove('open'); });
+
+// Cart
+function addToCart(btn, id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  cart.push({...p, uid: Date.now()});
+  updateCart();
+  if(btn){ btn.innerHTML='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'; btn.classList.add('added'); setTimeout(()=>{ btn.innerHTML='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'; btn.classList.remove('added'); },1400); }
+  showToast(p.name+' added to cart');
+}
+function removeFromCart(uid){ cart=cart.filter(i=>i.uid!==uid); updateCart(); }
+function updateCart(){
+  const count=cart.length;
+  document.getElementById('cart-badge').textContent=count;
+  const total=cart.reduce((s,i)=>s+i.price,0);
+  document.getElementById('cart-total').textContent='\u20A6'+total.toLocaleString();
+  const el=document.getElementById('cart-items');
+  if(!count){ el.innerHTML='<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><p>Your cart is empty</p></div>'; return; }
+  el.innerHTML=cart.map(i=>`<div class="cart-item"><div class="cart-item-img">${ICONS[i.icon]||ICONS.laptop}</div><div class="cart-item-info"><div class="cart-item-name">${i.name}</div><div class="cart-item-price">&#8358;${i.price.toLocaleString()}</div></div><button class="cart-item-remove" onclick="removeFromCart(${i.uid})">&times;</button></div>`).join('');
+  if(count>0){
+    const list=cart.map(i=>'- '+i.name+' (\u20A6'+i.price.toLocaleString()+')').join('%0A');
+    const msg='Hi Jumuah, I%27d like to order:%0A%0A'+list+'%0A%0ATotal: \u20A6'+total.toLocaleString()+'%0A%0APlease confirm availability and payment details.';
+    document.getElementById('cart-wa-btn').href='https://wa.me/'+WA+'?text='+msg;
+  }
+}
+
+// Cart open/close
+const cartOverlay=document.getElementById('cart-overlay'),cartSidebar=document.getElementById('cart-sidebar');
+function openCart(){ cartOverlay.classList.add('open'); cartSidebar.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart(){ cartOverlay.classList.remove('open'); cartSidebar.classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('cart-btn').addEventListener('click',openCart);
+document.getElementById('cart-close').addEventListener('click',closeCart);
+cartOverlay.addEventListener('click',closeCart);
+
+// Toast
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+// Burger
+const burger=document.getElementById('burger'),mobileMenu=document.getElementById('mobile-menu');
+burger.addEventListener('click',()=>{ burger.classList.toggle('open'); mobileMenu.classList.toggle('open'); document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''; });
+document.querySelectorAll('.menu-link').forEach(l=>l.addEventListener('click',()=>{ burger.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow=''; }));
+
+// Reveal
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }),{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
